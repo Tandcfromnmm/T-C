@@ -44,14 +44,10 @@
             letter-spacing: -0.02em;
             text-transform: uppercase;
             margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
 
         .brand-logo span {
-            color: #00a0e3; /* Accent blue */
+            color: #00a0e3;
         }
 
         h1 {
@@ -62,7 +58,7 @@
             color: var(--text-main);
         }
 
-        /* Search Bar Style */
+        /* Search Bar & Auto-Suggest Style */
         .search-box-wrapper {
             position: relative;
             margin-bottom: 24px;
@@ -96,6 +92,40 @@
             fill: var(--text-secondary);
         }
 
+        /* Suggestion Dropdown List */
+        .suggestions-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-top: 6px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            max-height: 220px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .suggestion-item {
+            padding: 12px 16px;
+            font-size: 15px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.15s ease;
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
         /* Results List Style */
         .results-container {
             display: flex;
@@ -109,7 +139,6 @@
             padding: 20px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             border: 1px solid rgba(0, 0, 0, 0.04);
-            transition: transform 0.2s ease;
         }
 
         .doctor-header {
@@ -177,12 +206,13 @@
         <h1>Find Doctor</h1>
     </div>
     
-    <!-- Search Bar -->
+    <!-- Search Bar & Auto-Suggest Box -->
     <div class="search-box-wrapper">
         <svg class="search-icon" viewBox="0 0 24 24">
             <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
         </svg>
-        <input type="text" id="searchInput" placeholder="Search doctor, specialty, branch, or unit..." oninput="filterDoctors()">
+        <input type="text" id="searchInput" placeholder="Type doctor name, specialty, branch..." oninput="handleSearchInput()" autocomplete="off">
+        <div id="suggestionsList" class="suggestions-list"></div>
     </div>
 
     <!-- Dynamic Results Container -->
@@ -205,23 +235,63 @@
             document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Unable to load doctor database. Please check doctors.json file.</div>`;
         });
 
-    function filterDoctors() {
+    function handleSearchInput() {
         const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        const suggestionsBox = document.getElementById('suggestionsList');
         const container = document.getElementById('resultsContainer');
         
         if (query === "") {
+            suggestionsBox.style.display = 'none';
             container.innerHTML = `<div class="no-results">Type above to search across all CARE branches and departments.</div>`;
             return;
         }
 
+        // Filter data letter-by-letter matching any field
         const filtered = doctorData.filter(doc => {
             return Object.values(doc).some(val => 
                 String(val).toLowerCase().includes(query)
             );
         });
 
+        // Show auto-suggestions dropdown based on matched doctor names or specialties
+        showSuggestions(filtered);
         renderDoctors(filtered);
     }
+
+    function showSuggestions(doctors) {
+        const suggestionsBox = document.getElementById('suggestionsList');
+        suggestionsBox.innerHTML = '';
+
+        if (doctors.length === 0) {
+            suggestionsBox.style.display = 'none';
+            return;
+        }
+
+        // Limit suggestions to top 5 matches
+        const topMatches = doctors.slice(0, 5);
+        topMatches.forEach(doc => {
+            const item = document.createElement('div');
+            item.className = 'suggestion-item';
+            item.innerHTML = `<strong>${doc["Doctor Name"]}</strong> <span style="color:var(--text-secondary); font-size:13px;">(${doc["Department"]} - ${doc["Branch"]})</span>`;
+            
+            item.onclick = function() {
+                document.getElementById('searchInput').value = doc["Doctor Name"];
+                suggestionsBox.style.display = 'none';
+                renderDoctors([doc]);
+            };
+            
+            suggestionsBox.appendChild(item);
+        });
+
+        suggestionsBox.style.display = 'block';
+    }
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-box-wrapper')) {
+            document.getElementById('suggestionsList').style.display = 'none';
+        }
+    });
 
     function renderDoctors(doctors) {
         const container = document.getElementById('resultsContainer');
@@ -242,7 +312,7 @@
                         <h3 class="doctor-name">${doc["Doctor Name"] || 'N/A'}</h3>
                         <span style="font-size: 13px; color: var(--text-secondary);">${doc["Department"] || ''} • Unit: ${doc["Unit"] || 'N/A'}</span>
                     </div>
-                    <span class="hospital-badge">${doc["Branch"] || doc["Hospital Name"] || 'CARE'}</span>
+                    <span class="hospital-badge">${doc["Branch"] || 'CARE'}</span>
                 </div>
                 <div class="info-grid">
                     <div class="info-item"><strong>Hospital:</strong> ${doc["Hospital Name"] || 'CARE Hospitals'}</div>
