@@ -3,105 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Availability Directory</title>
+    <title>Doctor Directory</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background: #f4f7f6; color: #333; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .filter-group { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
-        select, input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
-        .result-card { margin-top: 20px; padding: 20px; border: 1px solid #e0e0e0; border-radius: 6px; background: #fafafa; }
-        .alert { color: #d9534f; font-weight: bold; }
+        :root {
+            --bg-color: #f5f5f7;
+            --card-bg: #ffffff;
+            --text-main: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent: #0071e3;
+            --border-color: #d2d2d7;
+            --radius: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        /* Search Bar Style */
+        .search-box-wrapper {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            font-size: 17px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            outline: none;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            fill: var(--text-secondary);
+        }
+
+        /* Results List Style */
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .doctor-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s ease;
+        }
+
+        .doctor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .doctor-name {
+            font-size: 19px;
+            font-weight: 600;
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        .hospital-badge {
+            font-size: 12px;
+            font-weight: 500;
+            background: #e8f2ff;
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 16px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .info-item strong {
+            color: var(--text-main);
+        }
+
+        .update-banner {
+            background: #fff8e6;
+            border-left: 4px solid #ff9f0a;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #8a5700;
+            margin-top: 10px;
+        }
+
+        .no-results {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 15px;
+            padding: 30px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Find Doctor OP Timings & Availability</h2>
+    <h1>Find a Doctor</h1>
     
-    <div class="filter-group">
-        <label for="branchSelect">Select Branch:</label>
-        <select id="branchSelect" onchange="filterHospitals()">
-            <option value="">-- Choose Branch --</option>
-        </select>
+    <!-- Search Bar -->
+    <div class="search-box-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search doctor, specialty, hospital, or unit..." oninput="filterDoctors()">
     </div>
 
-    <div class="filter-group">
-        <label for="doctorSelect">Select Doctor:</label>
-        <select id="doctorSelect" onchange="displayDoctorDetails()">
-            <option value="">-- Choose Doctor --</option>
-        </select>
-    </div>
-
-    <div id="doctorDetails" class="result-card" style="display: none;">
-        <h3>Doctor Information</h3>
-        <p><strong>Hospital:</strong> <span id="resHospital"></span></p>
-        <p><strong>Department:</strong> <span id="resDept"></span> | <strong>Unit:</strong> <span id="resUnit"></span></p>
-        <p><strong>OP Timings:</strong> <span id="resTimings"></span></p>
-        <p><strong>OP Fee:</strong> <span id="resFee"></span></p>
-        <p><strong>Updates / Leave Status:</strong> <span id="resLeave" class="alert"></span></p>
+    <!-- Dynamic Results -->
+    <div id="resultsContainer" class="results-container">
+        <div class="no-results">Type above to search across all branches and hospitals.</div>
     </div>
 </div>
 
 <script>
     let doctorData = [];
 
-    // Fetch the JSON data generated from your Excel sheet
+    // Fetch your JSON data file generated from Excel
     fetch('doctors.json')
         .then(response => response.json())
         .then(data => {
             doctorData = data;
-            populateBranches();
+            // Optionally show all or keep empty until searched. Let's show all by default:
+            renderDoctors(doctorData);
         });
 
-    function populateBranches() {
-        const branches = [...new Set(doctorData.map(d => d.Branch))];
-        const branchSelect = document.getElementById('branchSelect');
-        branches.forEach(branch => {
-            let opt = document.createElement('option');
-            opt.value = branch;
-            opt.textContent = branch;
-            branchSelect.appendChild(opt);
-        });
-    }
-
-    function filterHospitals() {
-        const selectedBranch = document.getElementById('branchSelect').value;
-        const doctorSelect = document.getElementById('doctorSelect');
-        doctorSelect.innerHTML = '<option value="">-- Choose Doctor --</option>';
-        document.getElementById('doctorDetails').style.display = 'none';
-
-        const filteredDoctors = doctorData.filter(d => d.Branch === selectedBranch);
-        filteredDoctors.forEach((doc, index) => {
-            let opt = document.createElement('option');
-            opt.value = index; // using index to reference data item easily
-            opt.textContent = `${doc["Doctor Name"]} (${doc.Department})`;
-            doctorSelect.appendChild(opt);
-        });
-    }
-
-    function displayDoctorDetails() {
-        const index = document.getElementById('doctorSelect').value;
-        const detailsDiv = document.getElementById('doctorDetails');
-
-        if (index === "") {
-            detailsDiv.style.display = 'none';
+    function filterDoctors() {
+        const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        
+        if (query === "") {
+            renderDoctors(doctorData);
             return;
         }
 
-        // Find the selected doctor based on branch and selection
-        const selectedBranch = document.getElementById('branchSelect').value;
-        const filteredDoctors = doctorData.filter(d => d.Branch === selectedBranch);
-        const doc = filteredDoctors[index];
+        const filtered = doctorData.filter(doc => {
+            return Object.values(doc).some(val => 
+                String(val).toLowerCase().includes(query)
+            );
+        });
 
-        document.getElementById('resHospital').textContent = doc["Hospital Name"];
-        document.getElementById('resDept').textContent = doc["Department"];
-        document.getElementById('resUnit').textContent = doc["Unit"];
-        document.getElementById('resTimings').textContent = doc["OP Timings"];
-        document.getElementById('resFee').textContent = doc["OP Fee"];
-        document.getElementById('resLeave').textContent = doc["Leave / Timing Updates"];
+        renderDoctors(filtered);
+    }
 
-        detailsDiv.style.display = 'block';
+    function renderDoctors(doctors) {
+        const container = document.getElementById('resultsContainer');
+        container.innerHTML = '';
+
+        if (doctors.length === 0) {
+            container.innerHTML = `<div class="no-results">No doctors found matching your search.</div>`;
+            return;
+        }
+
+        doctors.forEach(doc => {
+            const card = document.createElement('div');
+            card.className = 'doctor-card';
+
+            card.innerHTML = `
+                <div class="doctor-header">
+                    <div>
+                        <h3 class="doctor-name">${doc["Doctor Name"] || 'N/A'}</h3>
+                        <span style="font-size: 13px; color: var(--text-secondary);">${doc["Department"] || ''} • Unit: ${doc["Unit"] || 'N/A'}</span>
+                    </div>
+                    <span class="hospital-badge">${doc["Hospital Name"] || doc["Branch"] || 'Hospital'}</span>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item"><strong>Branch:</strong> ${doc["Branch"] || 'N/A'}</div>
+                    <div class="info-item"><strong>OP Fee:</strong> ${doc["OP Fee"] || 'N/A'}</div>
+                    <div class="info-item" style="grid-column: span 2;"><strong>OP Timings:</strong> ${doc["OP Timings"] || 'N/A'}</div>
+                </div>
+                ${doc["Leave / Timing Updates"] && doc["Leave / Timing Updates"] !== "Regular Timings" ? `
+                    <div class="update-banner">
+                        ⚠️ <strong>Notice:</strong> ${doc["Leave / Timing Updates"]}
+                    </div>
+                ` : ''}
+            `;
+            container.appendChild(card);
+        });
     }
 </script>
 
