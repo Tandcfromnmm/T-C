@@ -49,12 +49,13 @@
             justify-content: center;
             box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
             flex-shrink: 0;
+            position: relative;
         }
 
-        /* Signature multi-ring star icon recreation */
+        /* Signature multi-ring star icon with 'e' in center */
         .star-icon-inner {
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
             border: 1.5px dashed #38bdf8;
             border-radius: 50%;
             display: flex;
@@ -63,11 +64,13 @@
             animation: spin 10s linear infinite;
         }
 
-        .star-dot {
-            width: 4px;
-            height: 4px;
-            background-color: #ffffff;
-            border-radius: 50%;
+        .center-letter-e {
+            position: absolute;
+            font-size: 14px;
+            font-weight: 800;
+            color: #ffffff;
+            font-family: sans-serif;
+            line-height: 1;
         }
 
         @keyframes spin {
@@ -341,12 +344,11 @@
 <body>
 
 <div class="container">
-    <!-- Dark Theme Branding Header with Logo -->
+    <!-- Dark Theme Branding Header with 'e' Logo -->
     <div class="brand-header">
         <div class="brand-logo-icon">
-            <div class="star-icon-inner">
-                <div class="star-dot"></div>
-            </div>
+            <div class="star-icon-inner"></div>
+            <div class="center-letter-e">e</div>
         </div>
         <div class="brand-title">Find Doctor</div>
     </div>
