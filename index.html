@@ -344,8 +344,8 @@
             display: inline-block;
             margin-top: 10px;
             font-size: 12.5px;
-            font-weight: 500;
-            letter-spacing: 0.03em;
+            font-weight: 600;
+            letter-spacing: 0.04em;
             background: linear-gradient(90deg, #94a3b8 0%, #ffffff 30%, #e2e8f0 50%, #ffffff 70%, #94a3b8 100%);
             background-size: 200% auto;
             color: transparent;
@@ -474,7 +474,7 @@
 
 <div class="container">
     <div class="brand-header">
-        <img src="images-removebg-preview.png" alt="Logo" class="logo-image">
+        <img src="1000135014.png" alt="Logo" class="logo-image">
         <div class="brand-title">Find Doctor</div>
     </div>
     
@@ -500,13 +500,16 @@
 </div>
 
 <footer class="site-footer">
-    <p>CARE Hospitals • Doctor Information & OPD Timings</p>
+    <p>CARE Hospitals • Doctor Information</p>
     <p>Please check and conform doctor name, department, unit correctly before informing to caller.</p>
     <p style="margin-top: 6px;"><span class="footer-highlight">Note:</span> Timings, consultation fees and updates are subjects to change.</p>
+    
+    <p id="backendTimestamp" style="color: var(--text-secondary); font-size: 12px; margin-top: 8px;">Backend Data Update: Loading...</p>
+    
     <div>
-        <span class="developer-credit">Website Built & Developed by Murali Manohar •2026•</span>
-        <span class="developer-credit">Content managed by your office</span>
+        <span class="developer-credit">Build & developed by Murali Manohar •2026•</span>
     </div>
+    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Content managed by your office</p>
 </footer>
 
 <button id="floatingStarBtn" class="floating-star-btn" onclick="openFirstStarredModal()" title="View Starred Doctors">
@@ -557,6 +560,48 @@
         .catch(error => {
             console.error('Error loading doctor data:', error);
             document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Unable to load doctors.json file. Make sure it is in the same folder.</div>`;
+        });
+
+    // Automatically fetch backend json file modification date
+    function formatBackendDate(dateObj) {
+        let hours = dateObj.getHours();
+        let minutes = dateObj.getMinutes();
+        const ampm = hours >= 12 ? 'pm' : 'am';
+        
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+
+        const day = dateObj.getDate();
+        let suffix = 'th';
+        if (day === 1 || day === 21 || day === 31) suffix = 'st';
+        else if (day === 2 || day === 22) suffix = 'nd';
+        else if (day === 3 || day === 23) suffix = 'rd';
+
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const month = months[dateObj.getMonth()];
+        const year = dateObj.getFullYear();
+
+        return `${hours}:${minutes}${ampm} on ${day}${suffix} ${month} ${year}`;
+    }
+
+    fetch('doctors.json', { method: 'HEAD' })
+        .then(response => {
+            const lastModifiedHeader = response.headers.get('Last-Modified');
+            const timestampEl = document.getElementById('backendTimestamp');
+            
+            if (lastModifiedHeader && timestampEl) {
+                const modDate = new Date(lastModifiedHeader);
+                timestampEl.textContent = `Backend Data Update: ${formatBackendDate(modDate)}`;
+            } else if (timestampEl) {
+                timestampEl.textContent = `Backend Data Update: ${formatBackendDate(new Date())}`;
+            }
+        })
+        .catch(() => {
+            const timestampEl = document.getElementById('backendTimestamp');
+            if (timestampEl) {
+                timestampEl.textContent = `Backend Data Update: ${formatBackendDate(new Date())}`;
+            }
         });
 
     function renderStareDoctors() {
