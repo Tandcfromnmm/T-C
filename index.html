@@ -423,7 +423,7 @@
 
 <div class="container">
     <div class="brand-header">
-        <img src="images-removebg-preview.png" alt="Logo" class="logo-image">
+        <img src="1000135014.png" alt="Logo" class="logo-image">
         <div class="brand-title">Find Doctor</div>
     </div>
     
@@ -448,7 +448,7 @@
     </div>
 </div>
 
-<button id="floatingStarBtn" class="floating-star-btn" onclick="openFirstStarredModal()" title="View Stare Doctor">
+<button id="floatingStarBtn" class="floating-star-btn" onclick="openFirstStarredModal()" title="View Starred Doctors">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
     </svg>
@@ -486,7 +486,7 @@
 <script>
     let doctorData = [];
 
-    // Automatically loads your 100-200 doctors from doctors.json file
+    // Automatically loads your doctors from doctors.json file
     fetch('doctors.json')
         .then(response => response.json())
         .then(data => {
@@ -507,7 +507,7 @@
         );
 
         if (starredDocs.length === 0) {
-            listContainer.innerHTML = `<div style="color: var(--text-secondary); font-size: 14px;">No stared doctors found. Set 'Yes' in the Starred column of your JSON file.</div>`;
+            listContainer.innerHTML = `<div style="color: var(--text-secondary); font-size: 14px;">No starred doctors found. Set 'Yes' in the Starred column of your JSON file.</div>`;
             return;
         }
 
@@ -516,6 +516,7 @@
         starredDocs.forEach(doc => {
             const banner = document.createElement('div');
             banner.className = 'stare-compact-banner';
+            banner.style.marginBottom = '8px';
             banner.onclick = () => openModal(doc);
 
             banner.innerHTML = `
@@ -597,6 +598,10 @@
         if (!e.target.closest('.search-box-wrapper')) {
             document.getElementById('suggestionsList').style.display = 'none';
         }
+        if (!e.target.closest('#floatingStarBtn') && !e.target.closest('#floatingStarMenu')) {
+            const menu = document.getElementById('floatingStarMenu');
+            if (menu) menu.style.display = 'none';
+        }
     });
 
     function renderDoctors(doctors) {
@@ -658,11 +663,53 @@
         document.getElementById('doctorModal').classList.add('active');
     }
 
+    // Floating star button opens a popup menu showing ALL starred doctors
     function openFirstStarredModal() {
         const starredDocs = doctorData.filter(doc => doc["Starred"] && String(doc["Starred"]).trim().toLowerCase() === "yes");
-        if (starredDocs.length > 0) {
-            openModal(starredDocs[0]);
+        if (starredDocs.length === 0) return;
+
+        let existingMenu = document.getElementById('floatingStarMenu');
+        if (existingMenu) {
+            existingMenu.style.display = existingMenu.style.display === 'none' ? 'block' : 'none';
+            return;
         }
+
+        const menu = document.createElement('div');
+        menu.id = 'floatingStarMenu';
+        menu.style.position = 'fixed';
+        menu.style.bottom = '90px';
+        menu.style.right = '24px';
+        menu.style.background = 'var(--card-bg)';
+        menu.style.border = '1px solid #2d3748';
+        menu.style.borderRadius = '16px';
+        menu.style.padding = '12px';
+        menu.style.boxShadow = '0 10px 30px rgba(0,0,0,0.4)';
+        menu.style.zIndex = '1600';
+        menu.style.width = '240px';
+        menu.style.maxHeight = '300px';
+        menu.style.overflowY = 'auto';
+
+        let menuHtml = `<div style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; padding-left: 4px;">Starred Doctors</div>`;
+        
+        starredDocs.forEach(doc => {
+            menuHtml += `
+                <div class="floating-menu-item" style="padding: 10px; border-radius: 8px; cursor: pointer; transition: background 0.15s; margin-bottom: 4px;" onmouseover="this.style.background='rgba(59,130,246,0.15)'" onmouseout="this.style.background='transparent'">
+                    <div style="font-weight: 600; font-size: 14px; color: var(--text-main);">${doc["Doctor Name"]}</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">${doc["Department"]}</div>
+                </div>
+            `;
+        });
+
+        menu.innerHTML = menuHtml;
+        document.body.appendChild(menu);
+
+        const items = menu.querySelectorAll('.floating-menu-item');
+        items.forEach((item, index) => {
+            item.onclick = () => {
+                openModal(starredDocs[index]);
+                menu.style.display = 'none';
+            };
+        });
     }
 
     function closeModal() {
