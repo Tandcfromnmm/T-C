@@ -195,104 +195,65 @@
             margin-top: 10px;
         }
 
-        /* Apple-Style Highlight / Starred Doctor Card (Default Empty State) */
-        .star-highlight-card {
+        /* Apple-Style Compact Starred Banner/Chip (Instead of a huge card) */
+        .star-compact-banner {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%);
             border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 20px;
-            padding: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 14px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             backdrop-filter: blur(10px);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
-        .star-highlight-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(to bottom, #3b82f6, #7c3aed);
+        .star-compact-banner:hover {
+            transform: translateY(-1px);
+            border-color: #3b82f6;
         }
 
-        .star-card-header {
+        .star-compact-left {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
+            gap: 12px;
         }
 
-        .star-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+        .star-icon-box {
+            width: 36px;
+            height: 36px;
             background: rgba(59, 130, 246, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #60a5fa;
-            font-size: 12px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 20px;
-            letter-spacing: 0.02em;
-            text-transform: uppercase;
+            flex-shrink: 0;
         }
 
-        .star-card-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin: 0 0 4px 0;
-        }
-
-        .star-card-subtitle {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-        }
-
-        .star-card-body {
-            background: rgba(11, 19, 43, 0.6);
-            border-radius: 12px;
-            padding: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        .star-card-row {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .star-card-row span:first-child {
-            color: var(--text-secondary);
-        }
-
-        .star-card-row span:last-child {
-            color: var(--text-main);
-            font-weight: 500;
-        }
-
-        .star-card-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
+        .star-compact-info h4 {
+            margin: 0 0 2px 0;
             font-size: 15px;
             font-weight: 600;
-            cursor: pointer;
-            transition: opacity 0.2s ease;
+            color: var(--text-main);
         }
 
-        .star-card-btn:hover {
-            opacity: 0.9;
+        .star-compact-info p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .star-compact-action {
+            font-size: 13px;
+            font-weight: 600;
+            color: #60a5fa;
+            background: rgba(59, 130, 246, 0.15);
+            padding: 6px 12px;
+            border-radius: 20px;
+            white-space: nowrap;
         }
 
         /* Floating Star/Flag Action Button */
@@ -326,7 +287,7 @@
             padding: 20px;
         }
 
-        /* Modal Overlay for Detailed View / Floating Card Popup */
+        /* Modal Overlay for Detailed View */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -453,31 +414,16 @@
 
     <!-- Dynamic Results Container -->
     <div id="resultsContainer" class="results-container">
-        <!-- Default State: Starred Doctor Apple-Style Highlight Card -->
-        <div id="defaultStarredCard" class="star-highlight-card">
-            <div class="star-card-header">
-                <span class="star-tag">⭐ Featured Doctor</span>
-                <span style="font-size: 13px; color: var(--text-secondary);">Priority Specialist</span>
-            </div>
-            <h3 id="starredDocName" class="star-card-title">Loading Featured Doctor...</h3>
-            <div id="starredDocSub" class="star-card-subtitle">Specialty • Branch</div>
-            
-            <div class="star-card-body">
-                <div class="star-card-row">
-                    <span>Hospital:</span>
-                    <span id="starredDocHospital">CARE Hospitals</span>
-                </div>
-                <div class="star-card-row">
-                    <span>OP Fee:</span>
-                    <span id="starredDocFee">N/A</span>
-                </div>
-                <div class="star-card-row">
-                    <span>Timings:</span>
-                    <span id="starredDocTimings">N/A</span>
+        <!-- Compact Apple-Style Starred Banner (Default State) -->
+        <div id="defaultStarredCard" class="star-compact-banner" onclick="openStarredModal()">
+            <div class="star-compact-left">
+                <div class="star-icon-box">⭐</div>
+                <div class="star-compact-info">
+                    <h4 id="starredDocName">Loading Featured Doctor...</h4>
+                    <p id="starredDocSub">Specialty • Branch</p>
                 </div>
             </div>
-            
-            <button class="star-card-btn" onclick="openStarredModal()">View Complete Schedule</button>
+            <div class="star-compact-action">View Info</div>
         </div>
     </div>
 </div>
@@ -529,7 +475,6 @@
         .then(data => {
             doctorData = data;
             if (doctorData.length > 0) {
-                // Pick the first doctor (or customize criteria for a specific starred doctor)
                 featuredDoctor = doctorData[0];
                 updateFeaturedCardUI();
             }
@@ -543,9 +488,6 @@
         if (!featuredDoctor) return;
         document.getElementById('starredDocName').textContent = featuredDoctor["Doctor Name"] || 'N/A';
         document.getElementById('starredDocSub').textContent = `${featuredDoctor["Department"] || 'Specialty'} • ${featuredDoctor["Branch"] || 'Branch'}`;
-        document.getElementById('starredDocHospital').textContent = featuredDoctor["Hospital Name"] || 'CARE Hospitals';
-        document.getElementById('starredDocFee').textContent = featuredDoctor["OP Fee"] || 'N/A';
-        document.getElementById('starredDocTimings').textContent = featuredDoctor["OP Timings"] || 'N/A';
     }
 
     function handleSearchInput() {
@@ -556,30 +498,17 @@
         
         if (query === "") {
             suggestionsBox.style.display = 'none';
-            // Restore featured starred card when search is cleared
+            // Restore compact banner when search is cleared
             container.innerHTML = `
-                <div id="defaultStarredCard" class="star-highlight-card">
-                    <div class="star-card-header">
-                        <span class="star-tag">⭐ Featured Doctor</span>
-                        <span style="font-size: 13px; color: var(--text-secondary);">Priority Specialist</span>
-                    </div>
-                    <h3 id="starredDocName" class="star-card-title"></h3>
-                    <div id="starredDocSub" class="star-card-subtitle"></div>
-                    <div class="star-card-body">
-                        <div class="star-card-row">
-                            <span>Hospital:</span>
-                            <span id="starredDocHospital"></span>
-                        </div>
-                        <div class="star-card-row">
-                            <span>OP Fee:</span>
-                            <span id="starredDocFee"></span>
-                        </div>
-                        <div class="star-card-row">
-                            <span>Timings:</span>
-                            <span id="starredDocTimings"></span>
+                <div id="defaultStarredCard" class="star-compact-banner" onclick="openStarredModal()">
+                    <div class="star-compact-left">
+                        <div class="star-icon-box">⭐</div>
+                        <div class="star-compact-info">
+                            <h4 id="starredDocName"></h4>
+                            <p id="starredDocSub"></p>
                         </div>
                     </div>
-                    <button class="star-card-btn" onclick="openStarredModal()">View Complete Schedule</button>
+                    <div class="star-compact-action">View Info</div>
                 </div>
             `;
             updateFeaturedCardUI();
@@ -596,7 +525,7 @@
         showSuggestions(filtered);
         renderDoctors(filtered);
 
-        // Hide featured card, show floating icon when search results are active
+        // Hide compact banner, show floating icon when search results are active
         floatingBtn.style.display = 'flex';
     }
 
