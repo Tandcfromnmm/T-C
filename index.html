@@ -486,6 +486,7 @@
 <script>
     let doctorData = [];
 
+    // Automatically loads your 100-200 doctors from doctors.json file
     fetch('doctors.json')
         .then(response => response.json())
         .then(data => {
@@ -494,7 +495,7 @@
         })
         .catch(error => {
             console.error('Error loading doctor data:', error);
-            document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Unable to load doctor database. Please check doctors.json file.</div>`;
+            document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Unable to load doctors.json file. Make sure it is in the same folder.</div>`;
         });
 
     function renderStareDoctors() {
@@ -506,7 +507,7 @@
         );
 
         if (starredDocs.length === 0) {
-            listContainer.innerHTML = `<div style="color: var(--text-secondary); font-size: 14px;">No stared doctors found. Set 'Yes' in the Starred column of your Excel file.</div>`;
+            listContainer.innerHTML = `<div style="color: var(--text-secondary); font-size: 14px;">No stared doctors found. Set 'Yes' in the Starred column of your JSON file.</div>`;
             return;
         }
 
