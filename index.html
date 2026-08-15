@@ -21,7 +21,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 30px 16px 0 16px; /* Added top/side padding, removed bottom to let footer sit naturally or use flex */
+            padding: 30px 16px 0 16px;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -32,7 +32,7 @@
             width: 100%;
             max-width: 600px;
             margin: 0 auto;
-            flex: 1; /* Pushes footer down if content is short */
+            flex: 1;
         }
 
         /* Branding Header */
@@ -317,7 +317,7 @@
             padding: 20px;
         }
 
-        /* Footer Style */
+        /* Footer Style with Silver Shimmer Credit */
         .site-footer {
             width: 100%;
             border-top: 1px solid #1e293b;
@@ -337,6 +337,30 @@
         .footer-highlight {
             color: #60a5fa;
             font-weight: 500;
+        }
+
+        /* Silver Shining Credit Text Animation */
+        .developer-credit {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 12.5px;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            background: linear-gradient(90deg, #94a3b8 0%, #ffffff 30%, #e2e8f0 50%, #ffffff 70%, #94a3b8 100%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: silverShine 4s linear infinite;
+        }
+
+        @keyframes silverShine {
+            0% {
+                background-position: 200% center;
+            }
+            100% {
+                background-position: -200% center;
+            }
         }
 
         /* Modal Overlay */
@@ -406,7 +430,7 @@
         }
 
         .modal-title {
-            front-size: 22px;
+            font-size: 22px;
             font-weight: 700;
             margin: 0 0 4px 0;
         }
@@ -478,7 +502,10 @@
 <footer class="site-footer">
     <p>CARE Hospitals • Doctor Directory & OPD Timings</p>
     <p>For emergency assistance or appointments, please contact the hospital help desk directly.</p>
-    <p style="margin-top: 8px;"><span class="footer-highlight">Note:</span> Timings and consultation fees are subject to change.</p>
+    <p style="margin-top: 6px;"><span class="footer-highlight">Note:</span> Timings and consultation fees are subject to change.</p>
+    <div>
+        <span class="developer-credit">Built & Developed by Murali Manohar • 2026</span>
+    </div>
 </footer>
 
 <button id="floatingStarBtn" class="floating-star-btn" onclick="openFirstStarredModal()" title="View Starred Doctors">
