@@ -126,6 +126,15 @@
             color: #60a5fa;
         }
 
+        /* Section Header for Stare Doctors */
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            letter-spacing: -0.01em;
+        }
+
         /* Results List Style */
         .results-container {
             display: flex;
@@ -195,7 +204,7 @@
             margin-top: 10px;
         }
 
-        /* Apple-Style Compact Starred Banner/Chip (Instead of a huge card) */
+        /* Apple-Style Compact Starred Banner */
         .star-compact-banner {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%);
             border: 1px solid rgba(59, 130, 246, 0.3);
@@ -414,6 +423,8 @@
 
     <!-- Dynamic Results Container -->
     <div id="resultsContainer" class="results-container">
+        <!-- Stare Doctors Section Title -->
+        <div class="section-title">Stare Doctors</div>
         <!-- Compact Apple-Style Starred Banner (Default State) -->
         <div id="defaultStarredCard" class="star-compact-banner" onclick="openStarredModal()">
             <div class="star-compact-left">
@@ -429,7 +440,7 @@
 </div>
 
 <!-- Floating Star/Flag Action Button -->
-<button id="floatingStarBtn" class="floating-star-btn" onclick="openStarredModal()" title="View Featured Doctor">
+<button id="floatingStarBtn" class="floating-star-btn" onclick="openStarredModal()" title="View Stare Doctor">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
     </svg>
@@ -498,8 +509,9 @@
         
         if (query === "") {
             suggestionsBox.style.display = 'none';
-            // Restore compact banner when search is cleared
+            // Restore section title and compact banner when search is cleared
             container.innerHTML = `
+                <div class="section-title">Stare Doctors</div>
                 <div id="defaultStarredCard" class="star-compact-banner" onclick="openStarredModal()">
                     <div class="star-compact-left">
                         <div class="star-icon-box">⭐</div>
@@ -525,7 +537,7 @@
         showSuggestions(filtered);
         renderDoctors(filtered);
 
-        // Hide compact banner, show floating icon when search results are active
+        // Hide compact banner/section title, show floating icon when search results are active
         floatingBtn.style.display = 'flex';
     }
 
