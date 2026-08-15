@@ -31,7 +31,7 @@
             max-width: 600px;
         }
 
-        /* Branding Header matching exact logo style from screenshot */
+        /* Branding Header matching exact logo style and optical centering from screenshot */
         .brand-header {
             display: flex;
             align-items: center;
@@ -41,15 +41,15 @@
 
         .logo-container {
             position: relative;
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
         }
 
-        /* SVG rays sunburst matching the screenshot */
+        /* Sunburst Rays matching screenshot */
         .sunburst-svg {
             position: absolute;
             width: 100%;
@@ -62,23 +62,26 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Exact rounded lowercase custom 'e' circle from screenshot */
+        /* Perfectly centered and styled lowercase 'e' matching screenshot */
         .logo-circle-e {
             position: relative;
             z-index: 2;
-            width: 24px;
-            height: 24px;
-            background-color: #7c3aed; /* Purple shade from screenshot 'e' circle */
+            width: 26px;
+            height: 26px;
+            background-color: #7c3aed;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: "Courier New", Courier, monospace, sans-serif;
-            font-size: 15px;
+            font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 16px;
             font-weight: 700;
             font-style: italic;
             color: #ffffff;
-            box-shadow: 0 0 8px rgba(124, 58, 237, 0.6);
+            box-shadow: 0 0 10px rgba(124, 58, 237, 0.7);
+            /* Micro adjustments for optical center alignment inside circle */
+            padding-right: 1px;
+            padding-bottom: 1px;
         }
 
         .brand-title {
@@ -347,31 +350,31 @@
 <body>
 
 <div class="container">
-    <!-- Branding Header with exact screenshot logo -->
+    <!-- Branding Header with exact screenshot logo alignment -->
     <div class="brand-header">
         <div class="logo-container">
             <!-- Sunburst Rays matching screenshot -->
             <svg class="sunburst-svg" viewBox="0 0 100 100">
                 <g stroke="#38bdf8" stroke-width="4" stroke-linecap="round">
-                    <line x1="50" y1="8" x2="50" y2="18" />
-                    <line x1="50" y1="82" x2="50" y2="92" />
-                    <line x1="8" y1="50" x2="18" y2="50" />
-                    <line x1="82" y1="50" x2="92" y2="50" />
-                    <line x1="20" y1="20" x2="27" y2="27" />
-                    <line x1="73" y1="73" x2="80" y2="80" />
-                    <line x1="20" y1="80" x2="27" y2="73" />
-                    <line x1="73" y1="27" x2="80" y2="20" />
-                    <line x1="33" y1="12" x2="37" y2="21" />
-                    <line x1="63" y1="79" x2="67" y2="88" />
-                    <line x1="12" y1="33" x2="21" y2="37" />
-                    <line x1="79" y1="63" x2="88" y2="67" />
-                    <line x1="12" y1="67" x2="21" y2="63" />
-                    <line x1="79" y1="37" x2="88" y2="33" />
-                    <line x1="33" y1="88" x2="37" y2="79" />
-                    <line x1="63" y1="21" x2="67" y2="12" />
+                    <line x1="50" y1="6" x2="50" y2="18" />
+                    <line x1="50" y1="82" x2="50" y2="94" />
+                    <line x1="6" y1="50" x2="18" y2="50" />
+                    <line x1="82" y1="50" x2="94" y2="50" />
+                    <line x1="17" y1="17" x2="26" y2="26" />
+                    <line x1="74" y1="74" x2="83" y2="83" />
+                    <line x1="17" y1="83" x2="26" y2="74" />
+                    <line x1="74" y1="26" x2="83" y2="17" />
+                    <line x1="29" y1="10" x2="34" y2="20" />
+                    <line x1="66" y1="80" x2="71" y2="90" />
+                    <line x1="10" y1="29" x2="20" y2="34" />
+                    <line x1="80" y1="66" x2="90" y2="71" />
+                    <line x1="10" y1="71" x2="20" y2="66" />
+                    <line x1="80" y1="34" x2="90" y2="29" />
+                    <line x1="29" y1="90" x2="34" y2="80" />
+                    <line x1="66" y1="20" x2="71" y2="10" />
                 </g>
             </svg>
-            <!-- Exact purple stylized 'e' circle -->
+            <!-- Perfectly centered exact style 'e' circle -->
             <div class="logo-circle-e">e</div>
         </div>
         <div class="brand-title">Find Doctor</div>
