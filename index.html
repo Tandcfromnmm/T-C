@@ -31,7 +31,7 @@
             max-width: 600px;
         }
 
-        /* Branding Header matching "Find Near CARE" */
+        /* Branding Header matching exact logo style from screenshot */
         .brand-header {
             display: flex;
             align-items: center;
@@ -39,43 +39,46 @@
             margin-bottom: 24px;
         }
 
-        .brand-logo-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #3b82f6 0%, #1e1b4b 70%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
-            flex-shrink: 0;
+        .logo-container {
             position: relative;
-        }
-
-        /* Signature multi-ring star icon with 'e' in center */
-        .star-icon-inner {
-            width: 22px;
-            height: 22px;
-            border: 1.5px dashed #38bdf8;
-            border-radius: 50%;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: spin 10s linear infinite;
+            flex-shrink: 0;
         }
 
-        .center-letter-e {
+        /* SVG rays sunburst matching the screenshot */
+        .sunburst-svg {
             position: absolute;
-            font-size: 14px;
-            font-weight: 800;
-            color: #ffffff;
-            font-family: sans-serif;
-            line-height: 1;
+            width: 100%;
+            height: 100%;
+            animation: spin 20s linear infinite;
         }
 
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+
+        /* Exact rounded lowercase custom 'e' circle from screenshot */
+        .logo-circle-e {
+            position: relative;
+            z-index: 2;
+            width: 24px;
+            height: 24px;
+            background-color: #7c3aed; /* Purple shade from screenshot 'e' circle */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Courier New", Courier, monospace, sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            font-style: italic;
+            color: #ffffff;
+            box-shadow: 0 0 8px rgba(124, 58, 237, 0.6);
         }
 
         .brand-title {
@@ -344,11 +347,32 @@
 <body>
 
 <div class="container">
-    <!-- Dark Theme Branding Header with 'e' Logo -->
+    <!-- Branding Header with exact screenshot logo -->
     <div class="brand-header">
-        <div class="brand-logo-icon">
-            <div class="star-icon-inner"></div>
-            <div class="center-letter-e">e</div>
+        <div class="logo-container">
+            <!-- Sunburst Rays matching screenshot -->
+            <svg class="sunburst-svg" viewBox="0 0 100 100">
+                <g stroke="#38bdf8" stroke-width="4" stroke-linecap="round">
+                    <line x1="50" y1="8" x2="50" y2="18" />
+                    <line x1="50" y1="82" x2="50" y2="92" />
+                    <line x1="8" y1="50" x2="18" y2="50" />
+                    <line x1="82" y1="50" x2="92" y2="50" />
+                    <line x1="20" y1="20" x2="27" y2="27" />
+                    <line x1="73" y1="73" x2="80" y2="80" />
+                    <line x1="20" y1="80" x2="27" y2="73" />
+                    <line x1="73" y1="27" x2="80" y2="20" />
+                    <line x1="33" y1="12" x2="37" y2="21" />
+                    <line x1="63" y1="79" x2="67" y2="88" />
+                    <line x1="12" y1="33" x2="21" y2="37" />
+                    <line x1="79" y1="63" x2="88" y2="67" />
+                    <line x1="12" y1="67" x2="21" y2="63" />
+                    <line x1="79" y1="37" x2="88" y2="33" />
+                    <line x1="33" y1="88" x2="37" y2="79" />
+                    <line x1="63" y1="21" x2="67" y2="12" />
+                </g>
+            </svg>
+            <!-- Exact purple stylized 'e' circle -->
+            <div class="logo-circle-e">e</div>
         </div>
         <div class="brand-title">Find Doctor</div>
     </div>
