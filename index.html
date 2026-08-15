@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CARE Hospitals - Find Doctor</title>
+    <title>Find Doctor - CARE Hospitals</title>
     <style>
         :root {
-            --bg-color: #f5f5f7;
-            --card-bg: #ffffff;
-            --text-main: #1d1d1f;
-            --text-secondary: #86868b;
-            --accent: #004b87; /* CARE Hospitals Deep Blue */
-            --accent-light: #e6f0fa;
-            --border-color: #d2d2d7;
+            --bg-color: #0b132b;
+            --card-bg: #16223f;
+            --text-main: #ffffff;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6;
+            --accent-glow: rgba(59, 130, 246, 0.2);
+            --border-color: #1e293b;
             --radius: 16px;
         }
 
@@ -21,7 +21,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 40px 20px;
+            padding: 30px 16px;
             display: flex;
             justify-content: center;
         }
@@ -31,31 +31,55 @@
             max-width: 600px;
         }
 
-        /* Branding Header */
+        /* Branding Header matching "Find Near CARE" */
         .brand-header {
-            text-align: center;
-            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
-        .brand-logo {
-            font-size: 22px;
-            font-weight: 800;
-            color: var(--accent);
-            letter-spacing: -0.02em;
-            text-transform: uppercase;
-            margin-bottom: 6px;
+        .brand-logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #3b82f6 0%, #1e1b4b 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+            flex-shrink: 0;
         }
 
-        .brand-logo span {
-            color: #00a0e3;
+        /* Signature multi-ring star icon recreation */
+        .star-icon-inner {
+            width: 18px;
+            height: 18px;
+            border: 1.5px dashed #38bdf8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: spin 10s linear infinite;
         }
 
-        h1 {
-            font-size: 26px;
+        .star-dot {
+            width: 4px;
+            height: 4px;
+            background-color: #ffffff;
+            border-radius: 50%;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .brand-title {
+            font-size: 20px;
             font-weight: 600;
-            letter-spacing: -0.015em;
-            margin: 0;
             color: var(--text-main);
+            letter-spacing: -0.01em;
         }
 
         /* Search Bar & Auto-Suggest Style */
@@ -67,19 +91,23 @@
         input[type="text"] {
             width: 100%;
             padding: 14px 16px 14px 44px;
-            font-size: 17px;
+            font-size: 16px;
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            border: 1px solid #2d3748;
             border-radius: var(--radius);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            color: var(--text-main);
             outline: none;
             transition: all 0.2s ease;
             box-sizing: border-box;
         }
 
+        input[type="text"]::placeholder {
+            color: var(--text-secondary);
+        }
+
         input[type="text"]:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 4px rgba(0, 75, 135, 0.15);
+            box-shadow: 0 0 0 4px var(--accent-glow);
         }
 
         .search-icon {
@@ -99,10 +127,10 @@
             left: 0;
             right: 0;
             background: var(--card-bg);
-            border: 1px solid var(--border-color);
+            border: 1px solid #2d3748;
             border-radius: 12px;
             margin-top: 6px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             max-height: 220px;
             overflow-y: auto;
             z-index: 1000;
@@ -113,7 +141,8 @@
             padding: 12px 16px;
             font-size: 15px;
             cursor: pointer;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #1e293b;
+            color: var(--text-main);
             transition: background 0.15s ease;
         }
 
@@ -122,8 +151,8 @@
         }
 
         .suggestion-item:hover {
-            background: var(--accent-light);
-            color: var(--accent);
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
         }
 
         /* Results List Style */
@@ -137,16 +166,15 @@
             background: var(--card-bg);
             border-radius: var(--radius);
             padding: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid #1e293b;
             cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
         .doctor-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 24px rgba(0, 75, 135, 0.08);
-            border-color: rgba(0, 75, 135, 0.2);
+            border-color: var(--accent);
         }
 
         .doctor-header {
@@ -157,7 +185,7 @@
         }
 
         .doctor-name {
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 600;
             margin: 0;
             color: var(--text-main);
@@ -166,10 +194,11 @@
         .hospital-badge {
             font-size: 12px;
             font-weight: 500;
-            background: var(--accent-light);
-            color: var(--accent);
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
             padding: 4px 10px;
             border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
         }
 
         .info-grid {
@@ -186,12 +215,12 @@
         }
 
         .update-banner {
-            background: #fff8e6;
-            border-left: 4px solid #ff9f0a;
+            background: rgba(245, 158, 11, 0.15);
+            border-left: 4px solid #f59e0b;
             padding: 10px 12px;
             border-radius: 8px;
             font-size: 13px;
-            color: #8a5700;
+            color: #fbbf24;
             margin-top: 10px;
         }
 
@@ -199,7 +228,7 @@
             text-align: center;
             color: var(--text-secondary);
             font-size: 15px;
-            padding: 30px;
+            padding: 40px 20px;
         }
 
         /* Modal Overlay for Detailed View */
@@ -209,8 +238,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(6px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -232,11 +261,13 @@
             max-width: 500px;
             border-radius: 20px;
             padding: 28px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            border: 1px solid #2d3748;
             transform: translateY(20px);
             transition: transform 0.25s ease;
             position: relative;
             box-sizing: border-box;
+            color: var(--text-main);
         }
 
         .modal-overlay.active .modal-card {
@@ -247,7 +278,7 @@
             position: absolute;
             top: 20px;
             right: 20px;
-            background: #f0f0f2;
+            background: #1e293b;
             border: none;
             width: 32px;
             height: 32px;
@@ -262,7 +293,7 @@
         }
 
         .modal-close:hover {
-            background: #e4e4e7;
+            background: #2d3748;
             color: var(--text-main);
         }
 
@@ -274,7 +305,7 @@
 
         .modal-subtitle {
             font-size: 14px;
-            color: var(--accent);
+            color: #60a5fa;
             font-weight: 600;
             margin-bottom: 20px;
         }
@@ -284,9 +315,10 @@
             flex-direction: column;
             gap: 14px;
             font-size: 15px;
-            background: var(--bg-color);
+            background: #0b132b;
             padding: 16px;
             border-radius: 12px;
+            border: 1px solid #1e293b;
             margin-bottom: 20px;
         }
 
@@ -309,12 +341,14 @@
 <body>
 
 <div class="container">
-    <!-- CARE Hospitals Branding Header -->
+    <!-- Dark Theme Branding Header with Logo -->
     <div class="brand-header">
-        <div class="brand-logo">
-            CARE <span>Hospitals</span>
+        <div class="brand-logo-icon">
+            <div class="star-icon-inner">
+                <div class="star-dot"></div>
+            </div>
         </div>
-        <h1>Find Doctor</h1>
+        <div class="brand-title">Find Doctor</div>
     </div>
     
     <!-- Search Bar & Auto-Suggest Box -->
@@ -322,7 +356,7 @@
         <svg class="search-icon" viewBox="0 0 24 24">
             <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
         </svg>
-        <input type="text" id="searchInput" placeholder="Type doctor name, specialty, branch..." oninput="handleSearchInput()" autocomplete="off">
+        <input type="text" id="searchInput" placeholder="Search doctor, specialty, or branch..." oninput="handleSearchInput()" autocomplete="off">
         <div id="suggestionsList" class="suggestions-list"></div>
     </div>
 
@@ -439,11 +473,9 @@
             return;
         }
 
-        doctors.forEach((doc, index) => {
+        doctors.forEach((doc) => {
             const card = document.createElement('div');
             card.className = 'doctor-card';
-            
-            // Attach click event to open detailed view modal
             card.onclick = () => openModal(doc);
 
             card.innerHTML = `
@@ -469,7 +501,6 @@
         });
     }
 
-    // Modal control functions
     function openModal(doc) {
         document.getElementById('modalDoctorName').textContent = doc["Doctor Name"] || 'N/A';
         document.getElementById('modalDeptUnit').textContent = `${doc["Department"] || 'Specialty'} • ${doc["Unit"] || 'Unit N/A'}`;
