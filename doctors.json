@@ -1,1 +1,43 @@
+[
+  {
+    "Branch": "Downtown Branch",
+    "Hospital Name": "City General Hospital",
+    "Doctor Name": "Dr. Sarah Johnson",
+    "Department": "Cardiology",
+    "Unit": "Unit A",
+    "OP Timings": "Mon, Wed, Fri: 9:00 AM - 2:00 PM",
+    "OP Fee": "$50",
+    "Leave / Timing Updates": "Regular Timings"
+  },
+  {
+    "Branch": "Westside Branch",
+    "Hospital Name": "St. Jude Medical Center",
+    "Doctor Name": "Dr. Michael Chen",
+    "Department": "Pediatrics",
+    "Unit": "Unit B",
+    "OP Timings": "Tue, Thu: 10:00 AM - 4:00 PM",
+    "OP Fee": "$40",
+    "Leave / Timing Updates": "On Leave: Aug 20 - Aug 22"
+  },
+  {
+    "Branch": "Downtown Branch",
+    "Hospital Name": "City General Hospital",
+    "Doctor Name": "Dr. Robert Smith",
+    "Department": "Orthopedics",
+    "Unit": "Unit C",
+    "OP Timings": "Mon - Sat: 11:00 AM - 3:00 PM",
+    "OP Fee": "$60",
+    "Leave / Timing Updates": "Timings changed to 12:00 PM - 4:00 PM for this week"
+  },
+  {
+    "Branch": "North Campus",
+    "Hospital Name": "Apex Specialty Hospital",
+    "Doctor Name": "Dr. Emily Davis",
+    "Department": "Dermatology",
+    "Unit": "Unit A",
+    "OP Timings": "Wed, Fri: 1:00 PM - 6:00 PM",
+    "OP Fee": "$45",
+    "Leave / Timing Updates": "Regular Timings"
+  }
+]
 
