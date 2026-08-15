@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Doctor OP Timings & Availability</title>
+    <title>CARE Hospitals - Find Doctor</title>
     <style>
         :root {
             --bg-color: #f5f5f7;
             --card-bg: #ffffff;
             --text-main: #1d1d1f;
             --text-secondary: #86868b;
-            --accent: #0071e3;
+            --accent: #004b87; /* CARE Hospitals Deep Blue */
+            --accent-light: #e6f0fa;
             --border-color: #d2d2d7;
             --radius: 16px;
         }
@@ -30,12 +31,35 @@
             max-width: 600px;
         }
 
+        /* Branding Header */
+        .brand-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .brand-logo {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .brand-logo span {
+            color: #00a0e3; /* Accent blue */
+        }
+
         h1 {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 600;
             letter-spacing: -0.015em;
-            margin-bottom: 24px;
-            text-align: center;
+            margin: 0;
+            color: var(--text-main);
         }
 
         /* Search Bar Style */
@@ -59,7 +83,7 @@
 
         input[type="text"]:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+            box-shadow: 0 0 0 4px rgba(0, 75, 135, 0.15);
         }
 
         .search-icon {
@@ -105,7 +129,7 @@
         .hospital-badge {
             font-size: 12px;
             font-weight: 500;
-            background: #e8f2ff;
+            background: var(--accent-light);
             color: var(--accent);
             padding: 4px 10px;
             border-radius: 20px;
@@ -145,19 +169,25 @@
 <body>
 
 <div class="container">
-    <h1>Find a Doctor</h1>
+    <!-- CARE Hospitals Branding Header -->
+    <div class="brand-header">
+        <div class="brand-logo">
+            CARE <span>Hospitals</span>
+        </div>
+        <h1>Find Doctor</h1>
+    </div>
     
     <!-- Search Bar -->
     <div class="search-box-wrapper">
         <svg class="search-icon" viewBox="0 0 24 24">
             <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
         </svg>
-        <input type="text" id="searchInput" placeholder="Search doctor, specialty, hospital, or unit..." oninput="filterDoctors()">
+        <input type="text" id="searchInput" placeholder="Search doctor, specialty, branch, or unit..." oninput="filterDoctors()">
     </div>
 
     <!-- Dynamic Results Container -->
     <div id="resultsContainer" class="results-container">
-        <div class="no-results">Type above to search across all branches and hospitals.</div>
+        <div class="no-results">Type above to search across all CARE branches and departments.</div>
     </div>
 </div>
 
@@ -169,7 +199,6 @@
         .then(response => response.json())
         .then(data => {
             doctorData = data;
-            // Kept empty on load; user starts by typing in search bar
         })
         .catch(error => {
             console.error('Error loading doctor data:', error);
@@ -180,13 +209,11 @@
         const query = document.getElementById('searchInput').value.toLowerCase().trim();
         const container = document.getElementById('resultsContainer');
         
-        // Return to prompt if input is cleared
         if (query === "") {
-            container.innerHTML = `<div class="no-results">Type above to search across all branches and hospitals.</div>`;
+            container.innerHTML = `<div class="no-results">Type above to search across all CARE branches and departments.</div>`;
             return;
         }
 
-        // Search through all properties of each doctor record
         const filtered = doctorData.filter(doc => {
             return Object.values(doc).some(val => 
                 String(val).toLowerCase().includes(query)
@@ -215,10 +242,10 @@
                         <h3 class="doctor-name">${doc["Doctor Name"] || 'N/A'}</h3>
                         <span style="font-size: 13px; color: var(--text-secondary);">${doc["Department"] || ''} • Unit: ${doc["Unit"] || 'N/A'}</span>
                     </div>
-                    <span class="hospital-badge">${doc["Hospital Name"] || doc["Branch"] || 'Hospital'}</span>
+                    <span class="hospital-badge">${doc["Branch"] || doc["Hospital Name"] || 'CARE'}</span>
                 </div>
                 <div class="info-grid">
-                    <div class="info-item"><strong>Branch:</strong> ${doc["Branch"] || 'N/A'}</div>
+                    <div class="info-item"><strong>Hospital:</strong> ${doc["Hospital Name"] || 'CARE Hospitals'}</div>
                     <div class="info-item"><strong>OP Fee:</strong> ${doc["OP Fee"] || 'N/A'}</div>
                     <div class="info-item" style="grid-column: span 2;"><strong>OP Timings:</strong> ${doc["OP Timings"] || 'N/A'}</div>
                 </div>
