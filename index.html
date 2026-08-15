@@ -126,15 +126,6 @@
             color: #60a5fa;
         }
 
-        /* Section Header for Stare Doctors */
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-            letter-spacing: -0.01em;
-        }
-
         /* Results List Style */
         .results-container {
             display: flex;
@@ -204,22 +195,47 @@
             margin-top: 10px;
         }
 
-        /* Apple-Style Compact Starred Banner */
-        .star-compact-banner {
+        /* Super Classic Apple-Style Container Card with Title Header Inside */
+        .stare-container-card {
+            background: var(--card-bg);
+            border: 1px solid #2d3748;
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            backdrop-filter: blur(10px);
+        }
+
+        .stare-container-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .stare-container-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            text-transform: uppercase;
+        }
+
+        .stare-compact-banner {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%);
             border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 14px;
+            border-radius: 12px;
             padding: 14px 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
             cursor: pointer;
             transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
-        .star-compact-banner:hover {
+        .stare-compact-banner:hover {
             transform: translateY(-1px);
             border-color: #3b82f6;
         }
@@ -423,18 +439,22 @@
 
     <!-- Dynamic Results Container -->
     <div id="resultsContainer" class="results-container">
-        <!-- Stare Doctors Section Title -->
-        <div class="section-title">Stare Doctors</div>
-        <!-- Compact Apple-Style Starred Banner (Default State) -->
-        <div id="defaultStarredCard" class="star-compact-banner" onclick="openStarredModal()">
-            <div class="star-compact-left">
-                <div class="star-icon-box">⭐</div>
-                <div class="star-compact-info">
-                    <h4 id="starredDocName">Loading Featured Doctor...</h4>
-                    <p id="starredDocSub">Specialty • Branch</p>
-                </div>
+        <!-- Super Classic Stare Doctors Container Card -->
+        <div id="defaultStareContainer" class="stare-container-card">
+            <div class="stare-container-header">
+                <span class="stare-container-title">Stare Doctors</span>
+                <span style="font-size: 13px; color: var(--text-secondary);">Featured</span>
             </div>
-            <div class="star-compact-action">View Info</div>
+            <div class="stare-compact-banner" onclick="openStarredModal()">
+                <div class="star-compact-left">
+                    <div class="star-icon-box">⭐</div>
+                    <div class="star-compact-info">
+                        <h4 id="starredDocName">Loading Featured Doctor...</h4>
+                        <p id="starredDocSub">Specialty • Branch</p>
+                    </div>
+                </div>
+                <div class="star-compact-action">View Info</div>
+            </div>
         </div>
     </div>
 </div>
@@ -509,18 +529,23 @@
         
         if (query === "") {
             suggestionsBox.style.display = 'none';
-            // Restore section title and compact banner when search is cleared
+            // Restore full Stare Doctors container card when search is cleared
             container.innerHTML = `
-                <div class="section-title">Stare Doctors</div>
-                <div id="defaultStarredCard" class="star-compact-banner" onclick="openStarredModal()">
-                    <div class="star-compact-left">
-                        <div class="star-icon-box">⭐</div>
-                        <div class="star-compact-info">
-                            <h4 id="starredDocName"></h4>
-                            <p id="starredDocSub"></p>
-                        </div>
+                <div id="defaultStareContainer" class="stare-container-card">
+                    <div class="stare-container-header">
+                        <span class="stare-container-title">Stare Doctors</span>
+                        <span style="font-size: 13px; color: var(--text-secondary);">Featured</span>
                     </div>
-                    <div class="star-compact-action">View Info</div>
+                    <div class="stare-compact-banner" onclick="openStarredModal()">
+                        <div class="star-compact-left">
+                            <div class="star-icon-box">⭐</div>
+                            <div class="star-compact-info">
+                                <h4 id="starredDocName"></h4>
+                                <p id="starredDocSub"></p>
+                            </div>
+                        </div>
+                        <div class="star-compact-action">View Info</div>
+                    </div>
                 </div>
             `;
             updateFeaturedCardUI();
@@ -537,7 +562,7 @@
         showSuggestions(filtered);
         renderDoctors(filtered);
 
-        // Hide compact banner/section title, show floating icon when search results are active
+        // Hide Stare Doctors container, show floating icon when search results are active
         floatingBtn.style.display = 'flex';
     }
 
