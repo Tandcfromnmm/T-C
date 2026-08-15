@@ -21,14 +21,18 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 30px 16px;
+            padding: 30px 16px 0 16px; /* Added top/side padding, removed bottom to let footer sit naturally or use flex */
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
         .container {
             width: 100%;
             max-width: 600px;
+            margin: 0 auto;
+            flex: 1; /* Pushes footer down if content is short */
         }
 
         /* Branding Header */
@@ -131,6 +135,7 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
+            margin-bottom: 40px;
         }
 
         .doctor-card {
@@ -312,6 +317,28 @@
             padding: 20px;
         }
 
+        /* Footer Style */
+        .site-footer {
+            width: 100%;
+            border-top: 1px solid #1e293b;
+            padding: 24px 16px;
+            background-color: rgba(11, 19, 43, 0.95);
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-secondary);
+            box-sizing: border-box;
+            margin-top: auto;
+        }
+
+        .site-footer p {
+            margin: 4px 0;
+        }
+
+        .footer-highlight {
+            color: #60a5fa;
+            font-weight: 500;
+        }
+
         /* Modal Overlay */
         .modal-overlay {
             position: fixed;
@@ -379,7 +406,7 @@
         }
 
         .modal-title {
-            font-size: 22px;
+            front-size: 22px;
             font-weight: 700;
             margin: 0 0 4px 0;
         }
@@ -423,7 +450,7 @@
 
 <div class="container">
     <div class="brand-header">
-        <img src="images-removebg-preview.png" alt="Logo" class="logo-image">
+        <img src="1000135014.png" alt="Logo" class="logo-image">
         <div class="brand-title">Find Doctor</div>
     </div>
     
@@ -447,6 +474,12 @@
         </div>
     </div>
 </div>
+
+<footer class="site-footer">
+    <p>CARE Hospitals • Doctor Directory & OPD Timings</p>
+    <p>For emergency assistance or appointments, please contact the hospital help desk directly.</p>
+    <p style="margin-top: 8px;"><span class="footer-highlight">Note:</span> Timings and consultation fees are subject to change.</p>
+</footer>
 
 <button id="floatingStarBtn" class="floating-star-btn" onclick="openFirstStarredModal()" title="View Starred Doctors">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -663,7 +696,6 @@
         document.getElementById('doctorModal').classList.add('active');
     }
 
-    // Floating star button opens a popup menu showing ALL starred doctors
     function openFirstStarredModal() {
         const starredDocs = doctorData.filter(doc => doc["Starred"] && String(doc["Starred"]).trim().toLowerCase() === "yes");
         if (starredDocs.length === 0) return;
