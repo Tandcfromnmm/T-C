@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor Directory</title>
+    <title>Find Doctor OP Timings & Availability</title>
     <style>
         :root {
             --bg-color: #f5f5f7;
@@ -155,7 +155,7 @@
         <input type="text" id="searchInput" placeholder="Search doctor, specialty, hospital, or unit..." oninput="filterDoctors()">
     </div>
 
-    <!-- Dynamic Results -->
+    <!-- Dynamic Results Container -->
     <div id="resultsContainer" class="results-container">
         <div class="no-results">Type above to search across all branches and hospitals.</div>
     </div>
@@ -164,23 +164,29 @@
 <script>
     let doctorData = [];
 
-    // Fetch your JSON data file generated from Excel
+    // Fetch JSON data generated from your Excel sheet
     fetch('doctors.json')
         .then(response => response.json())
         .then(data => {
             doctorData = data;
-            // Optionally show all or keep empty until searched. Let's show all by default:
-            renderDoctors(doctorData);
+            // Kept empty on load; user starts by typing in search bar
+        })
+        .catch(error => {
+            console.error('Error loading doctor data:', error);
+            document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Unable to load doctor database. Please check doctors.json file.</div>`;
         });
 
     function filterDoctors() {
         const query = document.getElementById('searchInput').value.toLowerCase().trim();
+        const container = document.getElementById('resultsContainer');
         
+        // Return to prompt if input is cleared
         if (query === "") {
-            renderDoctors(doctorData);
+            container.innerHTML = `<div class="no-results">Type above to search across all branches and hospitals.</div>`;
             return;
         }
 
+        // Search through all properties of each doctor record
         const filtered = doctorData.filter(doc => {
             return Object.values(doc).some(val => 
                 String(val).toLowerCase().includes(query)
