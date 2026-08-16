@@ -317,7 +317,7 @@
             padding: 20px;
         }
 
-        /* Footer Style with Silver Shimmer Credit */
+        /* Footer Style */
         .site-footer {
             width: 100%;
             border-top: 1px solid #1e293b;
@@ -375,22 +375,22 @@
             }
         }
 
-        /* Silver Shining Credit Text Animation */
+        /* Colorful Glowing Cyan/Blue Shimmer Credit Text Animation */
         .developer-credit {
             display: inline-block;
             margin-top: 10px;
             font-size: 12.5px;
             font-weight: 600;
             letter-spacing: 0.04em;
-            background: linear-gradient(90deg, #94a3b8 0%, #ffffff 30%, #e2e8f0 50%, #ffffff 70%, #94a3b8 100%);
+            background: linear-gradient(90deg, #38bdf8 0%, #818cf8 35%, #c084fc 70%, #38bdf8 100%);
             background-size: 200% auto;
             color: transparent;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: silverShine 4s linear infinite;
+            animation: colorShine 4s linear infinite;
         }
 
-        @keyframes silverShine {
+        @keyframes colorShine {
             0% {
                 background-position: 200% center;
             }
@@ -510,7 +510,7 @@
 
 <div class="container">
     <div class="brand-header">
-        <img src="images-removebg-preview.png" alt="Logo" class="logo-image">
+        <img src="1000135014.png" alt="Logo" class="logo-image">
         <div class="brand-title">Find Doctor</div>
     </div>
     
@@ -518,7 +518,7 @@
         <svg class="search-icon" viewBox="0 0 24 24">
             <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
         </svg>
-        <input type="text" id="searchInput" placeholder="Type doctor name..." oninput="handleSearchInput()" autocomplete="off">
+        <input type="text" id="searchInput" placeholder="Search doctor, specialty, or branch..." oninput="handleSearchInput()" autocomplete="off">
         <div id="suggestionsList" class="suggestions-list"></div>
     </div>
 
@@ -536,19 +536,20 @@
 </div>
 
 <footer class="site-footer">
-    <p>CARE Hospitals • Doctor Information</p>
+    <p>CARE Hospitals • Doctor Information & OPD Timings</p>
     
     <div class="live-dot-container">
         <span class="live-dot"></span>
-        <span id="backendTimestamp">Backend Data Timestamp: Loading...</span>
+        <span id="backendTimestamp">Backend Data Update: Loading...</span>
     </div>
 
-    <p style="margin-top: 8px;">Please check and conform doctor name, department & unit correctly before informing to caller.</p>
+    <p style="margin-top: 8px;">Please check and conform doctor name, department, unit correctly before informing to caller.</p>
+    <p style="margin-top: 4px;"><span class="footer-highlight">Note:</span> Timings, consultation fees and updates are subjects to change.</p>
     
     <div>
-        <span class="developer-credit">Website Build & Developed by Murali Manohar from TechM</span>
+        <span class="developer-credit">Build & developed by Murali Manohar •2026•</span>
     </div>
-    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;"> Content managed by your office</p>
+    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Content managed by your office</p>
 </footer>
 
 <button id="floatingStarBtn" class="floating-star-btn" onclick="openFirstStarredModal()" title="View Starred Doctors">
@@ -589,7 +590,6 @@
 <script>
     let doctorData = [];
 
-    // Automatically loads your doctors from doctors.json file
     fetch('doctors.json')
         .then(response => response.json())
         .then(data => {
@@ -601,7 +601,6 @@
             document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Unable to load doctors.json file. Make sure it is in the same folder.</div>`;
         });
 
-    // Automatically fetch backend json file modification date
     function formatBackendDate(dateObj) {
         let hours = dateObj.getHours();
         let minutes = dateObj.getMinutes();
