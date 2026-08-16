@@ -7,9 +7,7 @@
         "Starred": "Yes",
         "Doctor Name": "Dr. John Smith",
         "Department": "Cardiology",
-        "Unit": "Unit 1",
-        "Branch": "Banjara Hills",
-        "Hospital Name": "CARE Hospitals",
+        "Branch": "COPC",
         "OP Fee": "₹800",
         "OP Timings": "Mon - Sat: 10:00 AM - 2:00 PM",
         "Leave / Timing Updates": "Regular Timings"
@@ -18,9 +16,7 @@
         "Starred": "No",
         "Doctor Name": "Dr. Sarah Johnson",
         "Department": "Neurology",
-        "Unit": "Unit 2",
         "Branch": "Hitec City",
-        "Hospital Name": "CARE Hospitals",
         "OP Fee": "₹1000",
         "OP Timings": "Mon - Fri: 09:00 AM - 1:00 PM",
         "Leave / Timing Updates": "Regular Timings"
@@ -29,22 +25,45 @@
         "Starred": "Yes",
         "Doctor Name": "Dr. Murali",
         "Department": "Cardiology",
-        "Unit": "Unit 1",
-        "Branch": "Banjara Hills",
-        "Hospital Name": "CARE Hospitals",
+        "Branch": "Hitech City",
         "OP Fee": "₹800",
         "OP Timings": "Mon - Sat: 10:00 AM - 2:00 PM",
-        "Leave / Timing Updates": "Regular Timings"
+        "Leave / Timing Updates": "On leave 29th sep"
     },
      {
         "Starred": "Yes",
         "Doctor Name": "Dr. Manohar",
         "Department": "Cardiology",
-        "Unit": "Unit 1",
         "Branch": "Banjara Hills",
-        "Hospital Name": "CARE Hospitals",
         "OP Fee": "₹800",
         "OP Timings": "Mon - Sat: 10:00 AM - 2:00 PM",
         "Leave / Timing Updates": "Regular Timings"
+    },
+      {
+        "Starred": "Yes",
+        "Doctor Name": "Dr. Chowdary",
+        "Department": "Cardiology",
+        "Branch": "Nampally",
+        "OP Fee": "₹800",
+        "OP Timings": "Mon - Sat: 10:00 AM - 2:00 PM",
+        "Leave / Timing Updates": "On leave 29th sep"
+    },
+      {
+        "Starred": "Yes",
+        "Doctor Name": "Dr. Rajesh",
+        "Department": "Cardiology",
+        "Branch": "Malakpet",
+        "OP Fee": "₹800",
+        "OP Timings": "Mon - Sat: 10:00 AM - 2:00 PM",
+        "Leave / Timing Updates": "On leave 29th sep"
+    },
+      {
+        "Starred": "Yes",
+        "Doctor Name": "Dr. Naveen",
+        "Department": "Cardiology",
+        "Branch": "Raipur",
+        "OP Fee": "₹800",
+        "OP Timings": "Mon - Sat: 10:00 AM - 2:00 PM",
+        "Leave / Timing Updates": "On leave 29th sep"
     }
 ]
