@@ -65,7 +65,7 @@
 
         input[type="text"] {
             width: 100%;
-            padding: 14px 16px 14px 44px;
+            padding: 14px 44px 14px 44px;
             font-size: 16px;
             background: var(--card-bg);
             border: 1px solid #2d3748;
@@ -93,6 +93,33 @@
             width: 18px;
             height: 18px;
             fill: var(--text-secondary);
+        }
+
+        /* Apple Style Spinner Loader inside input wrapper */
+        .apple-spinner {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            display: none;
+        }
+
+        .apple-spinner div {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border-radius: 50%;
+            box-sizing: border-box;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top-color: var(--accent);
+            animation: appleSpin 0.8s linear infinite;
+        }
+
+        @keyframes appleSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         /* Suggestion Dropdown List */
@@ -194,13 +221,11 @@
             background: rgba(11, 19, 43, 0.5);
         }
 
-        /* Fixed max height with scrollable container for long starred lists */
         .accordion-wrapper.open .accordion-content {
             max-height: 260px;
             overflow-y: auto;
         }
 
-        /* Custom scrollbar for starred list */
         .accordion-content::-webkit-scrollbar {
             width: 6px;
         }
@@ -531,7 +556,8 @@
         <svg class="search-icon" viewBox="0 0 24 24">
             <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
         </svg>
-        <input type="text" id="searchInput" placeholder="Search doctor, specialty, or branch..." oninput="handleSearchInput()" autocomplete="off">
+        <input type="text" id="searchInput" placeholder="Search doctor, specialty, or branch..." oninput="handleSearchInput()" onkeydown="handleKeyDown(event)" autocomplete="off">
+        <div id="searchSpinner" class="apple-spinner"><div></div></div>
         <div id="suggestionsList" class="suggestions-list"></div>
     </div>
 
@@ -696,16 +722,12 @@
     function handleSearchInput() {
         const query = document.getElementById('searchInput').value.toLowerCase().trim();
         const suggestionsBox = document.getElementById('suggestionsList');
-        const accordionWrapper = document.getElementById('starredAccordion');
         
         if (query === "") {
             suggestionsBox.style.display = 'none';
-            accordionWrapper.style.display = 'block';
-            document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Type name to search, or expand the starred above.</div>`;
+            document.getElementById('searchSpinner').style.display = 'none';
             return;
         }
-
-        accordionWrapper.style.display = 'block';
 
         const filtered = doctorData.filter(doc => {
             return Object.values(doc).some(val => 
@@ -714,7 +736,34 @@
         });
 
         showSuggestions(filtered);
-        renderDoctors(filtered);
+    }
+
+    function handleKeyDown(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const spinner = document.getElementById('searchSpinner');
+            const suggestionsBox = document.getElementById('suggestionsList');
+
+            suggestionsBox.style.display = 'none';
+            spinner.style.display = 'block';
+
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                if (query === "") {
+                    document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Type name to search, or expand the starred above.</div>`;
+                    return;
+                }
+
+                const filtered = doctorData.filter(doc => {
+                    return Object.values(doc).some(val => 
+                        String(val).toLowerCase().includes(query)
+                    );
+                });
+
+                renderDoctors(filtered);
+            }, 350); // Simulated smooth loading delay for the spinner effect
+        }
     }
 
     function showSuggestions(doctors) {
@@ -735,7 +784,13 @@
             item.onclick = function() {
                 document.getElementById('searchInput').value = doc["Doctor Name"];
                 suggestionsBox.style.display = 'none';
-                renderDoctors([doc]);
+                
+                const spinner = document.getElementById('searchSpinner');
+                spinner.style.display = 'block';
+                setTimeout(() => {
+                    spinner.style.display = 'none';
+                    renderDoctors([doc]);
+                }, 250);
             };
             
             suggestionsBox.appendChild(item);
@@ -788,7 +843,7 @@
 
     function openModal(doc) {
         document.getElementById('modalDoctorName').textContent = doc["Doctor Name"] || 'N/A';
-        document.getElementById('modalDept').textContent = doc["Department"] || 'Department';
+        document.getElementById('modalDept').textContent = doc["Department"] / 'Department' || doc["Department"] || 'Department';
         document.getElementById('modalBranch').textContent = doc["Branch"] || 'N/A';
         document.getElementById('modalFee').textContent = doc["OP Fee"] || 'N/A';
         document.getElementById('modalTimings').textContent = doc["OP Timings"] || 'N/A';
