@@ -9,7 +9,7 @@
         "Department": "Cardiology",
         "Branch": "COPC",
         "OP Fee": "₹800",
-        "OP Timings": "Mon - Sat: 10:00 AM - 2:00 PM",
+        "OP Timings": "Mon - Sat 10:00 AM - 2:00 PM",
         "Leave / Timing Updates": "Regular Timings"
     },
     {
@@ -18,7 +18,7 @@
         "Department": "Neurology",
         "Branch": "Hitec City",
         "OP Fee": "₹1000",
-        "OP Timings": "Mon - Fri: 09:00 AM - 1:00 PM",
+        "OP Timings": "Mon - Fri 09:00 AM - 1:00 PM Sat 2pm to 5pm",
         "Leave / Timing Updates": "Regular Timings"
     },
      {
@@ -27,7 +27,7 @@
         "Department": "Cardiology",
         "Branch": "Hitech City",
         "OP Fee": "₹800",
-        "OP Timings": "Mon - Sat: 10:00 AM - 2:00 PM",
+        "OP Timings": "Mon - Sat 10:00 AM - 2:00 PM",
         "Leave / Timing Updates": "On leave 29th sep"
     },
      {
@@ -36,7 +36,7 @@
         "Department": "Cardiology",
         "Branch": "Banjara Hills",
         "OP Fee": "₹800",
-        "OP Timings": "Mon - Sat: 10:00 AM - 2:00 PM",
+        "OP Timings": "Mon - Sat 10:00 AM - 2:00 PM",
         "Leave / Timing Updates": "Regular Timings"
     },
       {
@@ -46,7 +46,7 @@
         "Branch": "Nampally",
         "OP Fee": "₹800",
         "OP Timings": "Mon - Sat: 10:00 AM - 2:00 PM",
-        "Leave / Timing Updates": "On leave 29th sep"
+        "Leave / Timing Updates": "On leave 10th sep"
     },
       {
         "Starred": "Yes",
@@ -54,8 +54,8 @@
         "Department": "Cardiology",
         "Branch": "Malakpet",
         "OP Fee": "₹800",
-        "OP Timings": "Mon - Sat: 10:00 AM - 2:00 PM",
-        "Leave / Timing Updates": "On leave 29th sep"
+        "OP Timings": "Mon - Sat 10:00 AM - 2:00 PM",
+        "Leave / Timing Updates": "On leave 19th sep"
     },
       {
         "Starred": "Yes",
@@ -63,7 +63,7 @@
         "Department": "Cardiology",
         "Branch": "Raipur",
         "OP Fee": "₹800",
-        "OP Timings": "Mon - Sat: 10:00 AM - 2:00 PM",
-        "Leave / Timing Updates": "On leave 29th sep"
+        "OP Timings": "Mon - Sat 10:00 AM - 2:00 PM",
+        "Leave / Timing Updates": "On leave 21st sep"
     }
 ]
