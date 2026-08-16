@@ -726,6 +726,8 @@
         if (query === "") {
             suggestionsBox.style.display = 'none';
             document.getElementById('searchSpinner').style.display = 'none';
+            // Automatically reset results to blank state when the user clears input
+            document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Type name to search, or expand the starred above.</div>`;
             return;
         }
 
@@ -746,15 +748,17 @@
             const suggestionsBox = document.getElementById('suggestionsList');
 
             suggestionsBox.style.display = 'none';
+            
+            if (query === "") {
+                spinner.style.display = 'none';
+                document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Type name to search, or expand the starred above.</div>`;
+                return;
+            }
+
             spinner.style.display = 'block';
 
             setTimeout(() => {
                 spinner.style.display = 'none';
-                if (query === "") {
-                    document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Type name to search, or expand the starred above.</div>`;
-                    return;
-                }
-
                 const filtered = doctorData.filter(doc => {
                     return Object.values(doc).some(val => 
                         String(val).toLowerCase().includes(query)
@@ -843,7 +847,7 @@
 
     function openModal(doc) {
         document.getElementById('modalDoctorName').textContent = doc["Doctor Name"] || 'N/A';
-        document.getElementById('modalDept').textContent = doc["Department"] / 'Department' || doc["Department"] || 'Department';
+        document.getElementById('modalDept').textContent = doc["Department"] || 'Department';
         document.getElementById('modalBranch').textContent = doc["Branch"] || 'N/A';
         document.getElementById('modalFee').textContent = doc["OP Fee"] || 'N/A';
         document.getElementById('modalTimings').textContent = doc["OP Timings"] || 'N/A';
