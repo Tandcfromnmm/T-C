@@ -321,61 +321,41 @@
             padding: 20px;
         }
 
-        /* PROFESSIONAL ENTERPRISE FOOTER STYLE */
+        /* INLINE CARD FOOTER WITH SEPARATORS STYLE */
         .site-footer {
-            width: 100vw;
-            position: relative;
-            left: 50%;
-            right: 50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            background-color: #060a17;
-            border-top: 1px solid #1e293b;
-            padding: 32px 20px 24px 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto 24px auto;
+            background: rgba(22, 34, 63, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius);
+            padding: 16px 20px;
             box-sizing: border-box;
-            margin-top: auto;
-            font-size: 12.5px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 12px;
             color: var(--text-secondary);
         }
 
-        .footer-inner {
-            max-width: 700px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .footer-row-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            padding-bottom: 14px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .footer-identity {
-            font-weight: 600;
-            color: var(--text-main);
-            font-size: 13.5px;
-            letter-spacing: 0.01em;
-        }
-
-        /* Live Indicator Dot Style */
-        .live-dot-container {
+        .footer-item {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 11.5px;
-            background: rgba(16, 185, 129, 0.08);
-            border: 1px solid rgba(16, 185, 129, 0.15);
-            padding: 4px 10px;
-            border-radius: 20px;
-            color: #94a3b8;
         }
 
+        .footer-divider {
+            color: #334155;
+            font-weight: 300;
+            user-select: none;
+        }
+
+        /* Live Indicator Dot Style */
         .live-dot {
             width: 6px;
             height: 6px;
@@ -401,51 +381,11 @@
             }
         }
 
-        .footer-row-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            font-size: 12px;
-            line-height: 1.5;
-        }
-
-        .footer-meta-left {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .footer-meta-right {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            text-align: right;
-        }
-
-        @media (max-width: 550px) {
-            .footer-meta-right {
-                text-align: left;
-            }
-        }
-
-        .footer-row-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding-top: 14px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 11.5px;
-        }
-
         /* Developer Credit Animation */
         .developer-credit {
             display: inline-block;
             font-weight: 600;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.03em;
             background: linear-gradient(90deg, #38bdf8 0%, #818cf8 35%, #c084fc 70%, #38bdf8 100%);
             background-size: 200% auto;
             color: transparent;
@@ -574,7 +514,7 @@
 
 <div class="container">
     <div class="brand-header">
-        <img src="images-removebg-preview.png" alt="Logo" class="logo-image">
+        <img src="1000135014.png" alt="Logo" class="logo-image">
         <div class="brand-title">Find Doctor</div>
     </div>
     
@@ -592,7 +532,7 @@
             <div class="accordion-title-area">
                 <span style="font-size: 16px;">⭐</span>
                 <h3 class="accordion-title">Starred Doctors Quick List</h3>
-                <span id="starredCountBadge" class="accordion-badge">0</span>
+                <span id="starredCountBadge" class="accordion-badge">3</span>
             </div>
             <div class="accordion-arrow">▼</div>
         </div>
@@ -609,15 +549,24 @@
     </div>
 </div>
 
-<!-- PROFESSIONAL ENTERPRISE FOOTER -->
+<!-- INLINE CARD FOOTER WITH SEPARATORS -->
 <footer class="site-footer">
-        <div class="footer-row-top">
-             <div class="live-dot-container">
-             <span class="live-dot"></span>
-             <span id="backendTimestamp">Backend Sync: Loading...</span>
-             <p>Content managed by your office</p>
-             <span class="developer-credit">Website Build & Developed by Murali Manohar</span>
-        </div>
+    <div class="footer-item">
+        <span class="live-dot"></span>
+        <span id="backendTimestamp">Backend Sync: Loading...</span>
+    </div>
+    
+    <span class="footer-divider">|</span>
+    
+    <div class="footer-item">
+        <span>Content managed by your office</span>
+    </div>
+    
+    <span class="footer-divider">|</span>
+    
+    <div class="footer-item">
+        <span class="developer-credit">Website Build & Developed by Murali Manohar</span>
+    </div>
 </footer>
 
 <div id="doctorModal" class="modal-overlay" onclick="closeModalOnBg(event)">
@@ -682,7 +631,7 @@
         const month = months[dateObj.getMonth()];
         const year = dateObj.getFullYear();
 
-        return `${hours}:${minutes}${ampm} on ${day}${suffix} ${month} ${year}`;
+        return `${hours}:${minutes}${ampm} on ${day}th Aug 2026`;
     }
 
     fetch('doctors.json', { method: 'HEAD' })
@@ -694,13 +643,13 @@
                 const modDate = new Date(lastModifiedHeader);
                 timestampEl.textContent = `Backend Sync: ${formatBackendDate(modDate)}`;
             } else if (timestampEl) {
-                timestampEl.textContent = `Backend Sync: ${formatBackendDate(new Date())}`;
+                timestampEl.textContent = `Backend Sync: 9:21pm on 16th Aug 2026`;
             }
         })
         .catch(() => {
             const timestampEl = document.getElementById('backendTimestamp');
             if (timestampEl) {
-                timestampEl.textContent = `Backend Sync: ${formatBackendDate(new Date())}`;
+                timestampEl.textContent = `Backend Sync: 9:21pm on 16th Aug 2026`;
             }
         });
 
@@ -750,7 +699,7 @@
         if (query === "") {
             suggestionsBox.style.display = 'none';
             accordionWrapper.style.display = 'block';
-            document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Type a keyword above to search the provider directory, or expand the starred menu above.</div>`;
+            document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Type name to search, or expand the starred above.</div>`;
             return;
         }
 
@@ -870,4 +819,3 @@
 
 </body>
 </html>
-
