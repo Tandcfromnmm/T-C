@@ -321,7 +321,7 @@
             padding: 20px;
         }
 
-        /* INLINE CARD FOOTER WITH SEPARATORS STYLE */
+        /* INLINE CARD FOOTER WITH SEPARATORS */
         .site-footer {
             width: 100%;
             max-width: 600px;
@@ -573,18 +573,19 @@
     <div class="modal-card">
         <button class="modal-close" onclick="closeModal()">✕</button>
         <h2 id="modalDoctorName" class="modal-title"></h2>
+        <div id="modalDept" class="modal-subtitle"></div>
         
         <div class="modal-details-grid">
             <div class="modal-detail-row">
-                <span>Branch Location:</span>
+                <span>Location:</span>
                 <span id="modalBranch"></span>
             </div>
             <div class="modal-detail-row">
-                <span>OP Fee:</span>
+                <span>Fee:</span>
                 <span id="modalFee"></span>
             </div>
             <div class="modal-detail-row" style="flex-direction: column; gap: 4px;">
-                <span>OP Timings:</span>
+                <span>Timing:</span>
                 <span id="modalTimings" style="text-align: left;"></span>
             </div>
         </div>
@@ -616,17 +617,7 @@
         hours = hours ? hours : 12;
         minutes = minutes < 10 ? '0' + minutes : minutes;
 
-        const day = dateObj.getDate();
-        let suffix = 'th';
-        if (day === 1 || day === 21 || day === 31) suffix = 'st';
-        else if (day === 2 || day === 22) suffix = 'nd';
-        else if (day === 3 || day === 23) suffix = 'rd';
-
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const month = months[dateObj.getMonth()];
-        const year = dateObj.getFullYear();
-
-        return `${hours}:${minutes}${ampm} on ${day}th Aug 2026`;
+        return `${hours}:${minutes}${ampm} on 16th Aug 2026`;
     }
 
     fetch('doctors.json', { method: 'HEAD' })
@@ -678,9 +669,9 @@
             row.innerHTML = `
                 <div>
                     <div style="font-weight: 600; font-size: 14.5px; color: var(--text-main); margin-bottom: 2px;">${doc["Doctor Name"] || 'N/A'}</div>
-                    <div style="font-size: 12.5px; color: var(--text-secondary);">${doc["Department"] || 'Specialty'}</div>
+                    <div style="font-size: 12.5px; color: var(--text-secondary);">${doc["Department"] || 'Department'}</div>
                 </div>
-                <span class="branch-tag">${doc["Branch"] || 'CARE'}</span>
+                <span class="branch-tag">${doc["Branch"] || 'Location'}</span>
             `;
             listContainer.appendChild(row);
         });
@@ -761,17 +752,17 @@
                 <div class="card-top-row">
                     <div>
                         <h3 class="doctor-name-min">${doc["Doctor Name"] || 'N/A'}</h3>
-                        <div class="doctor-spec-min">${doc["Department"] || 'Specialty'} • Unit: ${doc["Unit"] || 'N/A'}</div>
+                        <div class="doctor-spec-min">${doc["Department"] || 'Department'}</div>
                     </div>
-                    <span class="branch-tag">${doc["Branch"] || 'CARE'}</span>
+                    <span class="branch-tag">${doc["Branch"] || 'Location'}</span>
                 </div>
                 <div class="card-details-footer">
                     <span>Fee: <strong>${doc["OP Fee"] || 'N/A'}</strong></span>
-                    <span style="max-width: 55%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Timings: ${doc["OP Timings"] || 'N/A'}</span>
+                    <span style="max-width: 55%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Timing: ${doc["OP Timings"] || 'N/A'}</span>
                 </div>
                 ${doc["Leave / Timing Updates"] && doc["Leave / Timing Updates"] !== "Regular Timings" ? `
                     <div class="update-banner">
-                        ⚠️ <strong>Notice:</strong> ${doc["Leave / Timing Updates"]}
+                        ⚠️ <strong>Update:</strong> ${doc["Leave / Timing Updates"]}
                     </div>
                 ` : ''}
             `;
@@ -781,17 +772,16 @@
 
     function openModal(doc) {
         document.getElementById('modalDoctorName').textContent = doc["Doctor Name"] || 'N/A';
-        document.getElementById('modalDeptUnit').textContent = `${doc["Department"] || 'Specialty'} • ${doc["Unit"] || 'Unit N/A'}`;
+        document.getElementById('modalDept').textContent = doc["Department"] || 'Department';
         document.getElementById('modalBranch').textContent = doc["Branch"] || 'N/A';
-        document.getElementById('modalHospital').textContent = doc["Hospital Name"] || 'CARE Hospitals';
         document.getElementById('modalFee').textContent = doc["OP Fee"] || 'N/A';
         document.getElementById('modalTimings').textContent = doc["OP Timings"] || 'N/A';
 
         const updateContainer = document.getElementById('modalUpdateContainer');
         if (doc["Leave / Timing Updates"] && doc["Leave / Timing Updates"] !== "Regular Timings") {
             updateContainer.innerHTML = `
-                <div class="update-banner" style="margin-top: 0;">
-                    ⚠️ <strong>Notice:</strong> ${doc["Leave / Timing Updates"]}
+                <div class="update-banner" style="margin-top: 14px;">
+                    ⚠️ <strong>Update:</strong> ${doc["Leave / Timing Updates"]}
                 </div>
             `;
         } else {
