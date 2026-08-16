@@ -470,16 +470,9 @@
         }
 
         .modal-title {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
-            margin: 0 0 4px 0;
-        }
-
-        .modal-subtitle {
-            font-size: 14px;
-            color: #60a5fa;
-            font-weight: 600;
-            margin-bottom: 20px;
+            margin: 0 0 20px 0;
         }
 
         .modal-details-grid {
@@ -491,7 +484,7 @@
             padding: 16px;
             border-radius: 12px;
             border: 1px solid #1e293b;
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
 
         .modal-detail-row {
@@ -572,10 +565,17 @@
 <div id="doctorModal" class="modal-overlay" onclick="closeModalOnBg(event)">
     <div class="modal-card">
         <button class="modal-close" onclick="closeModal()">✕</button>
-        <h2 id="modalDoctorName" class="modal-title"></h2>
-        <div id="modalDept" class="modal-subtitle"></div>
+        <h2 class="modal-title">Doctor Info</h2>
         
         <div class="modal-details-grid">
+            <div class="modal-detail-row">
+                <span>Doctor Name:</span>
+                <span id="modalDoctorName"></span>
+            </div>
+            <div class="modal-detail-row">
+                <span>Department:</span>
+                <span id="modalDept"></span>
+            </div>
             <div class="modal-detail-row">
                 <span>Location:</span>
                 <span id="modalBranch"></span>
