@@ -321,34 +321,38 @@
             padding: 20px;
         }
 
-        /* NEW FLOATING GLASS-CARD FOOTER STYLE */
+        /* NEW MINIMALIST BOTTOM-BAR FOOTER STYLE */
         .site-footer {
-            width: 100%;
-            max-width: 600px;
-            margin: 40px auto 24px auto;
-            background: rgba(22, 34, 63, 0.75);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: var(--radius);
-            padding: 20px;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            background-color: #070d1f;
+            border-top: 1px solid #1e293b;
+            padding: 30px 20px;
             box-sizing: border-box;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            text-align: left;
-            font-size: 12.5px;
-            color: var(--text-secondary);
+            margin-top: auto;
         }
 
-        .footer-top-row {
+        .footer-content-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-main-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-            padding-bottom: 12px;
-            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
-        .footer-brand-info {
+        .footer-brand {
             font-weight: 600;
             color: var(--text-main);
             font-size: 14px;
@@ -359,17 +363,13 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 11.5px;
+            font-size: 12px;
             color: var(--text-secondary);
-            background: rgba(16, 185, 129, 0.1);
-            padding: 4px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(16, 185, 129, 0.2);
         }
 
         .live-dot {
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             background-color: #10b981;
             border-radius: 50%;
             display: inline-block;
@@ -392,26 +392,27 @@
             }
         }
 
-        .footer-notes {
+        .footer-guidelines {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            line-height: 1.5;
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            line-height: 1.4;
-            margin-bottom: 14px;
+            gap: 4px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 12px;
         }
 
-        .footer-notes span {
-            color: #cbd5e1;
-        }
-
-        .footer-bottom-row {
+        .footer-bottom-flex {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
             padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 12px;
+            color: var(--text-secondary);
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
         }
 
         .footer-highlight {
@@ -588,27 +589,27 @@
     </div>
 </div>
 
-<!-- NEW FLOATING GLASS-CARD FOOTER STYLE -->
+<!-- NEW MINIMALIST FULL-WIDTH BOTTOM-BAR FOOTER -->
 <footer class="site-footer">
-    <div class="footer-top-row">
-        <div class="footer-brand-info">CARE Hospitals • Information Desk</div>
-        <div class="live-dot-container">
-            <span class="live-dot"></span>
-            <span id="backendTimestamp">Backend Data: Loading...</span>
+    <div class="footer-content-inner">
+        <div class="footer-main-row">
+            <div class="footer-brand">CARE Hospitals • Doctor Directory</div>
+            <div class="live-dot-container">
+                <span class="live-dot"></span>
+                <span id="backendTimestamp">Backend Data: Loading...</span>
+            </div>
         </div>
-    </div>
 
-    <div class="footer-notes">
-        <span>📋 <strong>Verification:</strong> Please check and confirm doctor name, department, and unit accurately before informing callers.</span>
-        <span>💡 <span class="footer-highlight">Note:</span> Timings, consultation fees, and updates are subject to change.</span>
-    </div>
-
-    <div class="footer-bottom-row">
-        <div>
-            <span class="developer-credit">Build & developed by Murali Manohar •2026•</span>
+        <div class="footer-guidelines">
+            <div>⚠️ Please check and confirm doctor name, department, and unit correctly before informing to caller.</div>
+            <div><span class="footer-highlight">Note:</span> Timings, consultation fees, and updates are subject to change.</div>
         </div>
-        <div style="color: var(--text-secondary); font-size: 11.5px;">
-            Content managed by your office
+
+        <div class="footer-bottom-flex">
+            <div>
+                <span class="developer-credit">Build & developed by Murali Manohar •2026•</span>
+            </div>
+            <div>Content managed by your office</div>
         </div>
     </div>
 </footer>
