@@ -130,7 +130,7 @@
             color: #60a5fa;
         }
 
-        /* Dashboard Accordion / Collapsible Panel Style for Starred Doctors */
+        /* Dashboard Accordion Style for Starred Doctors */
         .accordion-wrapper {
             background: var(--card-bg);
             border: 1px solid #2d3748;
@@ -199,7 +199,6 @@
             overflow-y: auto;
         }
 
-        /* Compact Table List Item Style for Starred */
         .starred-row-item {
             padding: 12px 20px;
             display: flex;
@@ -218,7 +217,7 @@
             background: rgba(59, 130, 246, 0.1);
         }
 
-        /* Clean Minimal Grid Style for Results */
+        /* Results Container Style */
         .results-container {
             display: grid;
             grid-template-columns: 1fr;
@@ -380,7 +379,7 @@
             }
         }
 
-        /* Developer Credit Animation */
+        /* Developer Credit Animation (Custom Color other than white) */
         .developer-credit {
             display: inline-block;
             margin-top: 10px;
@@ -527,7 +526,7 @@
         <div id="suggestionsList" class="suggestions-list"></div>
     </div>
 
-    <!-- Dashboard Accordion Style for Starred Doctors -->
+    <!-- Collapsible Starred Doctors Accordion (Stays permanently visible at the top) -->
     <div id="starredAccordion" class="accordion-wrapper">
         <div class="accordion-header" onclick="toggleAccordion()">
             <div class="accordion-title-area">
@@ -544,9 +543,9 @@
         </div>
     </div>
 
-    <div class="section-heading" id="resultsHeading">Directory Results</div>
+    <div class="section-heading" id="resultsHeading">Search Results</div>
     <div id="resultsContainer" class="results-container">
-        <div class="no-results">Type a keyword above to search the provider directory.</div>
+        <div class="no-results">Type name to search, or expand the starred menu above.</div>
     </div>
 </div>
 
@@ -697,12 +696,13 @@
         
         if (query === "") {
             suggestionsBox.style.display = 'none';
-            accordionWrapper.style.display = 'block';
-            document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Type a keyword above to search the provider directory.</div>`;
+            accordionWrapper.style.display = 'block'; // Keeps starred section visible even if search box is cleared
+            document.getElementById('resultsContainer').innerHTML = `<div class="no-results">Type a keyword above to search the provider directory, or expand the starred menu above.</div>`;
             return;
         }
 
-        accordionWrapper.style.display = 'none'; // Auto-collapse/hide accordion panel on search results view to save vertical space
+        // Starred accordion remains visible so both lists can coexist cleanly on the screen!
+        accordionWrapper.style.display = 'block';
 
         const filtered = doctorData.filter(doc => {
             return Object.values(doc).some(val => 
